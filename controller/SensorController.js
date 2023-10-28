@@ -1,4 +1,5 @@
 const Sensor = require("../models/SensorModel");
+const mqttConnection = require("../mqtt");
 
 const getSensor = async (req, res) => {
   try {
@@ -10,6 +11,7 @@ const getSensor = async (req, res) => {
   }
 };
 
+/* FOR Socket.IO */
 const saveSensorToMongo = async (inputToJson) => {
   try {
     const found = await Sensor.findOne({ device: inputToJson.device });
@@ -18,6 +20,7 @@ const saveSensorToMongo = async (inputToJson) => {
         device: inputToJson.device,
         temperature: inputToJson.temperature,
         altitude: inputToJson.altitude,
+        lock: true,
       });
     } else {
       await Sensor.updateOne(
@@ -33,7 +36,39 @@ const saveSensorToMongo = async (inputToJson) => {
   }
 };
 
+const updateDeviceLock = async (req, res) => {
+  try {
+    const { id } = req.body;
+    const sensor = await Sensor.findById(id);
+
+    // Publish MQTT to IoT
+    if (sensor.lock) {
+      mqttConnection.publish("MediGuardDevice/output", {
+        device: sensor.device,
+        lock: "off",
+      });
+    } else {
+      mqttConnection.publish("MediGuardDevice/output", {
+        device: sensor.device,
+        lock: "on",
+      });
+    }
+
+    // Update DB
+    await Sensor.updateOne(
+      { _id: id },
+      {
+        lock: !sensor.lock,
+      }
+    );
+    res.formatter.ok("Data Updated");
+  } catch (error) {
+    res.formatter.badRequest(error);
+  }
+};
+
 module.exports = {
   getSensor,
   saveSensorToMongo,
+  updateDeviceLock,
 };

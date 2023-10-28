@@ -14,6 +14,10 @@ const sensorSchema = new mongoose.Schema(
       type: String,
       default: 0,
     },
+    lock: {
+      type: Boolean,
+      default: true,
+    },
   },
   { timestamps: true }
 );
