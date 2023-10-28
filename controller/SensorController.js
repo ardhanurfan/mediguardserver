@@ -20,7 +20,7 @@ const saveSensorToMongo = async (inputToJson) => {
         device: inputToJson.device,
         temperature: inputToJson.temperature,
         altitude: inputToJson.altitude,
-        lock: true,
+        lock: false,
       });
     } else {
       await Sensor.updateOne(
@@ -38,30 +38,27 @@ const saveSensorToMongo = async (inputToJson) => {
 
 const updateDeviceLock = async (req, res) => {
   try {
-    const { id } = req.body;
-    const sensor = await Sensor.findById(id);
+    const { device, value } = req.body;
 
     // Publish MQTT to IoT
-    if (sensor.lock) {
-      mqttConnection.publish("MediGuardDevice/output", {
-        device: sensor.device,
-        lock: "off",
-      });
-    } else {
-      mqttConnection.publish("MediGuardDevice/output", {
-        device: sensor.device,
-        lock: "on",
-      });
-    }
+    mqttConnection.publish(
+      "MediGuardDevice/output",
+      JSON.stringify({
+        device: device,
+        lock: value,
+      })
+    );
 
     // Update DB
     await Sensor.updateOne(
-      { _id: id },
+      { device: device },
       {
-        lock: !sensor.lock,
+        lock: value,
       }
     );
-    res.formatter.ok("Data Updated");
+
+    const sensor = await Sensor.findOne({ device: device });
+    res.formatter.ok(sensor);
   } catch (error) {
     res.formatter.badRequest(error);
   }
