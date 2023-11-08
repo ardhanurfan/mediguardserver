@@ -1,0 +1,32 @@
+[
+  {
+    "id_cabang": 26,
+    "kode_cabang": "JK2",
+    "nama_cabang": "Jakarta 2",
+    "alamat": "Infinia Park Modern WHS Blok A-11, A-12, A-15, A-16 Jalan Dr. Saharjo No. 45, Jakarta Selatan, Desa/Kelurahan Manggarai, Kec. Tebet, Kota Adm. Jakarta Selatan, Provinsi DKI Jakarta, Kode Pos: 12850"
+  },
+  {
+    "id_cabang": 30,
+    "kode_cabang": "JK3",
+    "nama_cabang": "Jakarta 3",
+    "alamat": "Jl. Kunir III RT.02 RW.05 Kel. Pondok Cabe, Kec. Pamulang, Tangerang Selatan"
+  },
+  {
+    "id_cabang": 42,
+    "kode_cabang": "TGR",
+    "nama_cabang": "Tangerang",
+    "alamat": "Jl. Pinang Kunciran no. 31, Kel Pinang, Tangerang"
+  },
+  {
+    "id_cabang": 49,
+    "kode_cabang": "SBY",
+    "nama_cabang": "Surabaya",
+    "alamat": "Jl. Rungkut Industri III No. 35 (Unit/Gudang C), Rungkut \u2013 Surabaya "
+  },
+  {
+    "id_cabang": 68,
+    "kode_cabang": "MKS",
+    "nama_cabang": "Makassar",
+    "alamat": "Jl. Pergudangan Parangloe Blok N11, 15 dan 17, Kel. Bira, Kec. Tamalanrea, Kota Makassar"
+  }
+]

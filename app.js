@@ -7,6 +7,7 @@ const { responseEnhancer } = require("express-response-formatter");
 
 var userRouter = require("./router/UserRouter");
 var sensorRouter = require("./router/SensorRouter");
+var branchRouter = require("./router/BranchRouter");
 
 var app = express();
 
@@ -26,6 +27,7 @@ app.use(responseEnhancer());
 // routers
 app.use(userRouter);
 app.use(sensorRouter);
+app.use(branchRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

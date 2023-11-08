@@ -16,7 +16,7 @@ const saveSensorToMongo = async (inputToJson) => {
   try {
     const found = await Sensor.findOne({ device: inputToJson.device });
     if (!found) {
-      await Sensor.insertOne({
+      await Sensor.create({
         device: inputToJson.device,
         temperature: inputToJson.temperature,
         altitude: inputToJson.altitude,
@@ -32,7 +32,7 @@ const saveSensorToMongo = async (inputToJson) => {
       );
     }
   } catch (error) {
-    reject({ message: error });
+    console.log({ message: error });
   }
 };
 
