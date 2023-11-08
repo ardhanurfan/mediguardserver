@@ -11,11 +11,10 @@ const transactionSchema = new mongoose.Schema({
     required: [true, "Tipe transportasi tidak boleh kosong"],
   },
   branchCode: {
-    Type: mongoode.Schema.Types.ObjectId,
+    Type: mongoose.Schema.Types.ObjectId,
     ref: "Branch",
   },
   status: { type: String },
-  ship_method_code: { type: String },
   ship_method_code: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "Vendor",

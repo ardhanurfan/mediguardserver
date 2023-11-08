@@ -24,7 +24,7 @@ const vendorSchema = new mongoose.Schema({
   ppnType: { type: String, required: true },
   wht: { type: String, required: true }, // Assuming "WHT" is a string
   lineNumber: { type: Number, required: true }, // Assuming "LINE_NUMBER" is a number
-  termMIn: { type: Number, required: true }, // Assuming "TERM_MIN" is a number
+  termMin: { type: Number, required: true }, // Assuming "TERM_MIN" is a number
   termMax: { type: Number, required: true }, // Assuming "TERM_MAX" is a number
   rate: { type: Number, required: true }, // Assuming "RATE" is a number
 });
