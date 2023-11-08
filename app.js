@@ -5,9 +5,15 @@ var cookieParser = require("cookie-parser");
 var logger = require("morgan");
 const { responseEnhancer } = require("express-response-formatter");
 
-var userRouter = require("./router/UserRouter");
-var sensorRouter = require("./router/SensorRouter");
-var branchRouter = require("./router/BranchRouter");
+var branchRouter = require('./router/BranchRouter');
+var deliveryCatRouter = require('./router/DeliveryCatRouter');
+var productRouter = require('./router/ProductRouter');
+var relationRouter = require('./router/RelationRouter');
+var sensorRouter = require('./router/SensorRouter');
+var transactionRouter = require('./router/TransactionRouter');
+var unitRouter = require('./router/UnitRouter'); 
+var userRouter = require('./router/UserRouter');
+var vendorRouter = require('./router/VendorRouter');
 
 var app = express();
 
@@ -26,8 +32,14 @@ app.use(responseEnhancer());
 
 // routers
 app.use(userRouter);
+app.use(deliveryCatRouter);
 app.use(sensorRouter);
 app.use(branchRouter);
+app.use(productRouter);
+app.use(relationRouter);
+app.use(transactionRouter);
+app.use(unitRouter);
+app.use(vendorRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
@@ -46,71 +58,3 @@ app.use(function (err, req, res, next) {
 });
 
 module.exports = app;
-
-/*
-const express = require('express');
-const mongoose = require('mongoose');
-const bodyParser = require('body-parser');
-
-const app = express();
-mongoose.connect('mongodb://localhost/your-database-name', { useNewUrlParser: true });
-
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(bodyParser.json());
-
-const branchController = require('../controllers/BranchController');
-const deliveryCatController = require('../controllers/DeliveryCatController');
-const productController = require('../controllers/ProductController');
-const relationController = require('../controllers/RelationController');
-const sensorController = require('../controllers/SensorController');
-const transactionController = require('../controllers/TransactionController');
-const unitController = require('../controllers/TransactionController');
-const userController = require('../controllers/UserController');
-const vendorController = require('../controllers/VendorController');
-
-const createRoute = require('./genericRouter');
-
-const routes = [
-  {
-    path: '/branch/push-dataset',
-    controller: branchController,
-  },
-  {
-    path: '/branch/push-dataset',
-    controller: deliveryCatController,
-  },
-  {
-    path: '/branch/push-dataset',
-    controller: productController,
-  },
-  {
-    path: '/branch/push-dataset',
-    controller: relationController,
-  },
-  {
-    path: '/branch/push-dataset',
-    controller: sensorController,
-  },
-  {
-    path: '/branch/push-dataset',
-    controller: transactionController,
-  },
-  {
-    path: '/branch/push-dataset',
-    controller: unitController,
-  },
-  {
-    path: '/branch/push-dataset',
-    controller: userController,
-  },
-  {
-    path: '/branch/push-dataset',
-    controller: vendorController,
-  }
-];
-
-// Create routes using the generic router
-routes.forEach((route) => {
-  app.use(route.path, createRoute(route.controller, route.path));
-});
- */

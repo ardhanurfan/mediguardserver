@@ -1,0 +1,20 @@
+[
+    {
+      "namaLengkap": "John Doe",
+      "email": "johndoe@example.com",
+      "password": "password123",
+      "role": "superadmin"
+    },
+    {
+      "namaLengkap": "Jane Smith",
+      "email": "janesmith@example.com",
+      "password": "password456",
+      "role": "admin"
+    },
+    {
+      "namaLengkap": "Robert Johnson",
+      "email": "robertjohnson@example.com",
+      "password": "password789",
+      "role": "driver"
+    }
+  ]

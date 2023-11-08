@@ -1,9 +1,9 @@
-const User = require("../models/UserModel");
-const dataset = require("../dataset/user.json");
+const Unit = require("../models/UnitModel");
+const dataset = require("../dataset/unit.json");
 const uploadData = async (req, res) => {
     try {
         await dataset.forEach(async (element) => {
-            await User.create([
+            await Unit.create([
                 {
                     namaLengkap: element.namaLengkap,
                     email: element.email,
