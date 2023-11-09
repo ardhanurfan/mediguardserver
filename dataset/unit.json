@@ -98,7 +98,7 @@
     "longitude": -8.1757379,
     "latitude": 41.49615
   }, {
-    "type": "3L",
+    "type": "M",
     "batteryCapacity": 40,
     "currentState": 0,
     "lockState": 1,
@@ -170,7 +170,7 @@
     "longitude": 4.936847,
     "latitude": 46.751598
   }, {
-    "type": "3L",
+    "type": "M",
     "batteryCapacity": 74,
     "currentState": 0,
     "lockState": 1,
@@ -179,7 +179,7 @@
     "longitude": 106.07971,
     "latitude": 33.77391
   }, {
-    "type": "3L",
+    "type": "M",
     "batteryCapacity": 73,
     "currentState": 1,
     "lockState": 0,
@@ -197,7 +197,7 @@
     "longitude": 100.0501736,
     "latitude": 15.49396
   }, {
-    "type": "3L",
+    "type": "M",
     "batteryCapacity": 85,
     "currentState": 1,
     "lockState": 0,
@@ -206,7 +206,7 @@
     "longitude": 110.37906,
     "latitude": -7.4104934
   }, {
-    "type": "3L",
+    "type": "M",
     "batteryCapacity": 88,
     "currentState": 1,
     "lockState": 1,
@@ -215,7 +215,7 @@
     "longitude": 41.6704075,
     "latitude": 50.5193689
   }, {
-    "type": "3L",
+    "type": "M",
     "batteryCapacity": 70,
     "currentState": 0,
     "lockState": 1,
@@ -233,7 +233,7 @@
     "longitude": 1.8957589,
     "latitude": 43.3090
   }, {
-    "type": "3L",
+    "type": "M",
     "batteryCapacity": 57,
     "currentState": 0,
     "lockState": 0,
@@ -260,7 +260,7 @@
     "longitude": -8.66058,
     "latitude": 38.538
   }, {
-    "type": "3L",
+    "type": "M",
     "batteryCapacity": 48,
     "currentState": 0,
     "lockState": 1,
@@ -296,7 +296,7 @@
     "longitude": 17.160751,
     "latitude": 49.593174
   }, {
-    "type": "3L",
+    "type": "M",
     "batteryCapacity": 99,
     "currentState": 0,
     "lockState": 1,
@@ -323,7 +323,7 @@
     "longitude": 118.473619,
     "latitude": 7.58749
   }, {
-    "type": "3L",
+    "type": "M",
     "batteryCapacity": 9,
     "currentState": 0,
     "lockState": 0,
@@ -404,7 +404,7 @@
     "longitude": 10.8340449,
     "latitude": 47.19003
   }, {
-    "type": "3L",
+    "type": "M",
     "batteryCapacity": 54,
     "currentState": 1,
     "lockState": 1,
@@ -485,7 +485,7 @@
     "longitude": 8.4761571,
     "latitude": 49.818088
   }, {
-    "type": "3L",
+    "type": "M",
     "batteryCapacity": 96,
     "currentState": 1,
     "lockState": 0,
@@ -674,7 +674,7 @@
     "longitude": -119.707853,
     "latitude": 39.603484
   }, {
-    "type": "3L",
+    "type": "M",
     "batteryCapacity": 98,
     "currentState": 1,
     "lockState": 0,
@@ -683,7 +683,7 @@
     "longitude": 116.48916,
     "latitude": 36.809895
   }, {
-    "type": "3L",
+    "type": "M",
     "batteryCapacity": 63,
     "currentState": 0,
     "lockState": 1,
@@ -764,7 +764,7 @@
     "longitude": 100.375037,
     "latitude": 16.7944909
   }, {
-    "type": "3L",
+    "type": "M",
     "batteryCapacity": 7,
     "currentState": 1,
     "lockState": 0,
@@ -818,7 +818,7 @@
     "longitude": 17.9614463,
     "latitude": 51.068668
   }, {
-    "type": "3L",
+    "type": "M",
     "batteryCapacity": 85,
     "currentState": 0,
     "lockState": 0,

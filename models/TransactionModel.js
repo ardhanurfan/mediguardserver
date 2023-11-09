@@ -7,14 +7,16 @@ const transactionSchema = new mongoose.Schema({
     ref: "User", // Reference the User model
   }, // User ID from the database
   transportType: {
-    Type: String,
-    required: [true, "Tipe transportasi tidak boleh kosong"],
+    type: String,
+    required: true,
   },
   branchCode: {
-    Type: mongoose.Schema.Types.ObjectId,
+    type: mongoose.Schema.Types.ObjectId,
     ref: "Branch",
   },
-  status: { type: String },
+  status: { 
+    type: String 
+  },
   ship_method_code: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "Vendor",

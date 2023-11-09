@@ -1,0 +1,26 @@
+[
+    {
+      "kategori_pengiriman": "03",
+      "suhu_simpan": "kamar",
+      "min_suhu_kirim_celcius": 15,
+      "max_suhu_kirim_celcius": 30
+    },
+    {
+      "kategori_pengiriman": "02-A",
+      "suhu_simpan": "sejuk",
+      "min_suhu_kirim_celcius": 15,
+      "max_suhu_kirim_celcius": 25
+    },
+    {
+      "kategori_pengiriman": "01",
+      "suhu_simpan": "dingin",
+      "min_suhu_kirim_celcius": 2,
+      "max_suhu_kirim_celcius": 8
+    },
+    {
+      "kategori_pengiriman": "02-B",
+      "suhu_simpan": "sejuk",
+      "min_suhu_kirim_celcius": 8,
+      "max_suhu_kirim_celcius": 15
+    }
+   ]
