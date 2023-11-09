@@ -5,18 +5,10 @@ const uploadData = async (req, res) => {
         await dataset.forEach(async (element) => {
             await DeliveryCat.create([
                 {
-                    _id: element.kode_produk,
-                    namaProduk: element.nama_produk,
-                    hna: element.hna,
-                    het: element.het,
-                    uom: element.uom,
-                    beratGram: element.beratGram,
-                    panjangCm: element.panjangCm,
-                    lebarCm: element.lebarCm,
-                    tinggiCm: element.tinggiCm,
-                    volumeCm3: element.volumeCm3,
-                    isLifeSaving: element.isLifeSaving,
-                    kategoriPengiriman: element.kategoriPengiriman
+                    kategori_pengiriman: element.kategori_pengiriman,
+                    suhu_simpan: element.suhu_simpan,
+                    min_suhu_kirim_celcius: element.min_suhu_kirim_celcius,
+                    max_suhu_kirim_celcius: element.max_suhu_kirim_celcius
                 },
             ]);
         });

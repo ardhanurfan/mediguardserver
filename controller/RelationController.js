@@ -5,16 +5,16 @@ const uploadData = async (req, res) => {
         await dataset.forEach(async (element) => {
             await Relation.create([
                 {
-                    _id: element.customer_number,
-                    alamat: element.alamat,
-                    state: element.state,
-                    city: element.city,
-                    province: element.province,
-                    zipCode: element.zipCode,
-                    channel: element.channel,
-                    shipMethodCode: element.shipMethodCode,
-                    shipMethodDesc: element.shipMethodDesc,
-                    deliveryAreaGroup: element.deliveryAreaGroup
+                    _id: element.CUSTOMER_NUMBER,
+                    alamat: element.ALAMAT,
+                    state: element.STATE,
+                    city: element.CITY,
+                    province: element.PROVINCE,
+                    zipCode: element.ZIP_CODE,
+                    channel: element.CHANNEL,
+                    shipMethodCode: element.SHIP_METHOD_CODE,
+                    shipMethodDesc: element.SHIP_METHOD_DESC,
+                    deliveryAreaGroup: element.DELIVERY_AREA_GROUP
                 },
             ]);
         });

@@ -6,11 +6,11 @@ const uploadData = async (req, res) => {
             await Transaction.create([
                 {
                     staffId: element.staffId,
-                    transportType: element.transportType,
-                    branchCode: element.branchCode,
-                    ship_method_code: element.ship_method_code,
-                    cust_num: element.cust_num,
-                    prod_code: element.prod_code,
+                    transportType: element.TIPE_TRANSPORT,
+                    branchCode: element.KODE_CABANG,
+                    ship_method_code: element.SHIP_METHOD_CODE,
+                    cust_num: element.CUSTOMER_NUMBER,
+                    prod_code: element.PRODUCT_CODE,
                     unitId: element.unitId,
                     packing_date: element.packing_date,
                     delivery_date: element.delivery_date,

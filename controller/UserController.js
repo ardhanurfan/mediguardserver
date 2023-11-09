@@ -5,6 +5,7 @@ const uploadData = async (req, res) => {
       await dataset.forEach(async (element) => {
           await Unit.create([
               {
+                  userId: element.userId,
                   namaLengkap: element.namaLengkap,
                   email: element.email,
                   password: element.role,

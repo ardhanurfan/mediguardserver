@@ -9,6 +9,7 @@ const vendorSchema = new mongoose.Schema({
     },
   },
   cabang: { type: String, unique: false },
+  shipper: { type: String, unique: false },
   shipmethod_code: { type: String, unique: false },
   namaCabang: { type: String, required: [true, "Nama tidak boleh kosong"] },
   service: { type: String, required: [true, "Alamat tidak boleh kosong"] },
