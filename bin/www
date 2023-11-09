@@ -10,6 +10,7 @@ var http = require("http");
 const socketIo = require("socket.io");
 const db = require("../db");
 const mqttConnection = require("../mqtt");
+const wwebjsConnection = require("../wwebjs");
 const Sensor = require("../models/SensorModel");
 const sensorController = require("../controller/SensorController");
 
@@ -71,6 +72,8 @@ mqttConnection.on("message", async (topic, data) => {
     await sensorController.saveSensorToMongo(JSON.parse(data));
   }
 });
+
+wwebjsConnection.initialize();
 
 /**
  * Normalize a port into a number, string, or false.

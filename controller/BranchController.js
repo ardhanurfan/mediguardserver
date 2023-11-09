@@ -9,7 +9,6 @@ const uploadData = async (req, res) => {
           _id: element.id_cabang,
           namaCabang: element.nama_cabang,
           alamat: element.alamat,
-          id_cabang: element.id_cabang,
           kode_cabang: element.kode_cabang,
         },
       ]);

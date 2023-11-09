@@ -5,15 +5,16 @@ var cookieParser = require("cookie-parser");
 var logger = require("morgan");
 const { responseEnhancer } = require("express-response-formatter");
 
-var branchRouter = require('./router/BranchRouter');
-var deliveryCatRouter = require('./router/DeliveryCatRouter');
-var productRouter = require('./router/ProductRouter');
-var relationRouter = require('./router/RelationRouter');
-var sensorRouter = require('./router/SensorRouter');
-var transactionRouter = require('./router/TransactionRouter');
-var unitRouter = require('./router/UnitRouter'); 
-var userRouter = require('./router/UserRouter');
-var vendorRouter = require('./router/VendorRouter');
+var branchRouter = require("./router/BranchRouter");
+var deliveryCatRouter = require("./router/DeliveryCatRouter");
+var productRouter = require("./router/ProductRouter");
+var relationRouter = require("./router/RelationRouter");
+var sensorRouter = require("./router/SensorRouter");
+var transactionRouter = require("./router/TransactionRouter");
+var unitRouter = require("./router/UnitRouter");
+var userRouter = require("./router/UserRouter");
+var vendorRouter = require("./router/VendorRouter");
+var whatsappRouter = require("./router/WhatsappRouter");
 
 var app = express();
 
@@ -40,6 +41,7 @@ app.use(relationRouter);
 app.use(transactionRouter);
 app.use(unitRouter);
 app.use(vendorRouter);
+app.use(whatsappRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
