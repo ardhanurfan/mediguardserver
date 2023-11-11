@@ -1,11 +1,42 @@
 const mongoose = require("mongoose");
 
+const bcrypt = require("bcryptjs");
+const HASH_ROUND = 10;
+
 const userSchema = new mongoose.Schema({
-  _id: { type: String, required: true },
+  userId: {
+    type: String,
+    default: function () {
+      // Create a unique ObjectId based on id_cabang and kode_cabang
+      return new mongoose.Types.ObjectId(`${this.userId}`);
+    },
+  },
   namaLengkap: { type: String, required: [true, "Nama tidak boleh kosong"] },
   email: { type: String, required: [true, "Email tidak boleh kosong"] },
   password: { type: String, required: [true, "Password tidak boleh kosong"] },
-  role: { type: String, required: true },
+  role: {
+    type: String,
+    required: true,
+    enum: ["admin", "superadmin", "driver"],
+    default: "driver",
+  },
+});
+
+userSchema.path("email").validate(
+  async function (value) {
+    try {
+      const count = await this.model("User").countDocuments({ email: value });
+      return !count;
+    } catch (err) {
+      throw err;
+    }
+  },
+  (attr) => `${attr.value} sudah terdaftar`
+);
+
+userSchema.pre("save", function (next) {
+  this.password = bcrypt.hashSync(this.password, HASH_ROUND);
+  next();
 });
 
 const User = mongoose.model("User", userSchema);

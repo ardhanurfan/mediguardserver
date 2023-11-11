@@ -4,6 +4,9 @@ var path = require("path");
 var cookieParser = require("cookie-parser");
 var logger = require("morgan");
 const { responseEnhancer } = require("express-response-formatter");
+const methodOverride = require("method-override");
+const session = require("express-session");
+var cors = require("cors");
 
 var branchRouter = require("./router/BranchRouter");
 var deliveryCatRouter = require("./router/DeliveryCatRouter");
@@ -17,11 +20,21 @@ var vendorRouter = require("./router/VendorRouter");
 var whatsappRouter = require("./router/WhatsappRouter");
 
 var app = express();
+app.use(cors());
 
 // view engine setup
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
 
+app.use(
+  session({
+    secret: "mediguard oke",
+    resave: false,
+    saveUninitialized: true,
+    cookie: {},
+  })
+);
+app.use(methodOverride("_method"));
 app.use(logger("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
