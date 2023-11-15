@@ -73,12 +73,12 @@ const signin = async (req, res, next) => {
         });
       } else {
         res.status(403).json({
-          message: "password yang anda masukan salah.",
+          message: "Password yang anda masukan salah.",
         });
       }
     } else {
       res.status(403).json({
-        message: "email yang anda masukan belum terdaftar.",
+        message: "Email yang anda masukan belum terdaftar.",
       });
     }
   } catch (err) {

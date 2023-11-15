@@ -3,6 +3,6 @@ var router = express.Router();
 const relation = require("../controller/RelationController");
 
 /* POST relation dataset */
-router.post("/relation/push-dataset", relation.uploadData);
+router.post("/push-dataset", relation.uploadData);
 
 module.exports = router;

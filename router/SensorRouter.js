@@ -3,7 +3,7 @@ var router = express.Router();
 const sensor = require("../controller/SensorController");
 
 /* GET sensors listing. */
-router.get("/sensor/:id", sensor.getSensor);
+router.get("/:id", sensor.getSensor);
 
 /* UPDATE device lock */
 router.put("/device-lock", sensor.updateDeviceLock);

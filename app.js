@@ -20,6 +20,7 @@ var vendorRouter = require("./router/VendorRouter");
 var whatsappRouter = require("./router/WhatsappRouter");
 
 var app = express();
+const URL = `/api`;
 app.use(cors());
 
 // view engine setup
@@ -45,16 +46,16 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use(responseEnhancer());
 
 // routers
-app.use(userRouter);
-app.use(deliveryCatRouter);
-app.use(sensorRouter);
-app.use(branchRouter);
-app.use(productRouter);
-app.use(relationRouter);
-app.use(transactionRouter);
-app.use(unitRouter);
-app.use(vendorRouter);
-app.use(whatsappRouter);
+app.use(`${URL}/user`, userRouter);
+app.use(`${URL}/delivery`, deliveryCatRouter);
+app.use(`${URL}/sensor`, sensorRouter);
+app.use(`${URL}/branch`, branchRouter);
+app.use(`${URL}/product`, productRouter);
+app.use(`${URL}/relation`, relationRouter);
+app.use(`${URL}/transaction`, transactionRouter);
+app.use(`${URL}/unit`, unitRouter);
+app.use(`${URL}/vendor`, vendorRouter);
+app.use(`${URL}/whatsapp`, whatsappRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
