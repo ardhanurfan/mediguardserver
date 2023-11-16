@@ -18,6 +18,7 @@ var unitRouter = require("./router/UnitRouter");
 var userRouter = require("./router/UserRouter");
 var vendorRouter = require("./router/VendorRouter");
 var whatsappRouter = require("./router/WhatsappRouter");
+var destinationRouter = require("./router/DestinationRouter");
 
 var app = express();
 const URL = `/api`;
@@ -56,6 +57,7 @@ app.use(`${URL}/transaction`, transactionRouter);
 app.use(`${URL}/unit`, unitRouter);
 app.use(`${URL}/vendor`, vendorRouter);
 app.use(`${URL}/whatsapp`, whatsappRouter);
+app.use(`${URL}/destination`, destinationRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

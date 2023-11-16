@@ -5,6 +5,14 @@ const transactionSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: "User", // Reference the User model
   }, // User ID from the database
+  orderNum: {
+    type: Number,
+    required: true,
+  },
+  deliveryNum: {
+    type: Number,
+    required: true,
+  },
   transportType: {
     type: String,
     required: true,
