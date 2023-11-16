@@ -7,6 +7,8 @@ router.post("/push-dataset", vendor.uploadData);
 
 router.post("/get-ongkir", vendor.getOngkir);
 
-router.get("/get-province/:provinceId", vendor.getProvince);
+router.get("/get-province", vendor.getProvince);
+
+router.get("/get-city", vendor.getCity);
 
 module.exports = router;

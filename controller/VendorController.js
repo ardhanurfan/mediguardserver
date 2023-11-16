@@ -71,11 +71,13 @@ const getOngkir = async (req, res) => {
 };
 
 const getProvince = async (req, res) => {
-  const { provinceId } = req.params;
+  const provinceId = req.query.provinceId;
 
   try {
     const response = await axios.get(
-      "https://api.rajaongkir.com/starter/province",
+      `https://api.rajaongkir.com/starter/province${
+        provinceId ? `?id=${provinceId}` : ""
+      }`,
       {
         params: {
           id: provinceId,
@@ -89,9 +91,35 @@ const getProvince = async (req, res) => {
     res.formatter.ok(response.data);
   } catch (error) {
     res.status(500).json({
-      message:
-        error.response.data.rajaongkir.status.description ||
-        "Internal server error",
+      message: error.response.data || "Internal server error",
+    });
+  }
+};
+
+const getCity = async (req, res) => {
+  const provinceId = req.query.provinceId;
+  const cityId = req.query.cityId;
+
+  try {
+    const response = await axios.get(
+      `https://api.rajaongkir.com/starter/city${cityId ? `?id=${cityId}` : ""}${
+        cityId && provinceId
+          ? "&province=" + provinceId
+          : provinceId
+          ? `?province=${provinceId}`
+          : ""
+      }`,
+      {
+        headers: {
+          key: apiKey,
+        },
+      }
+    );
+
+    res.formatter.ok(response.data);
+  } catch (error) {
+    res.status(500).json({
+      message: error.response.data || "Internal server error",
     });
   }
 };
@@ -100,4 +128,5 @@ module.exports = {
   uploadData,
   getOngkir,
   getProvince,
+  getCity,
 };
