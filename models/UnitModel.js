@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 
 const unitSchema = new mongoose.Schema({
-    _id: mongoose.Schema.Types.ObjectId,
+    unitId: { type: String, required: true, unique: true },
     type: { type: String, required: true },
     batteryCapacity: { type: Number,required: true },
     currentState: { type: Boolean, required: true }, // 1 if available to use, 0 if not available to use

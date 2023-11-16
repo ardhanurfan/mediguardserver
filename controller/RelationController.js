@@ -4,8 +4,9 @@ const uploadData = async (req, res) => {
     try {
         await dataset.forEach(async (element) => {
             await Relation.create([
-                {
-                    _id: element.CUSTOMER_NUMBER,
+                {   
+                    kodeCabang: element.KODE_CABANG,
+                    custNum: element.CUSTOMER_NUMBER,
                     alamat: element.ALAMAT,
                     state: element.STATE,
                     city: element.CITY,

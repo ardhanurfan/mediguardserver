@@ -1,7 +1,6 @@
 const mongoose = require("mongoose");
 
 const deliveryCatSchema = new mongoose.Schema({
-    _id: mongoose.Types.ObjectId,
     kategoriPengiriman : { type: String, required: true },
     suhuSimpan : { type: String, required: true },
     minSuhu : { type: Number, required: true },
