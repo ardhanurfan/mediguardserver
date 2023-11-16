@@ -4,17 +4,7 @@ const bcrypt = require("bcryptjs");
 const HASH_ROUND = 10;
 
 const userSchema = new mongoose.Schema({
-<<<<<<< Updated upstream
-  userId: {
-    type: String,
-    default: function () {
-      // Create a unique ObjectId based on id_cabang and kode_cabang
-      return new mongoose.Types.ObjectId(`${this.userId}`);
-    },
-  },
-=======
   userId: { type: String, required: true },
->>>>>>> Stashed changes
   namaLengkap: { type: String, required: [true, "Nama tidak boleh kosong"] },
   email: { type: String, required: [true, "Email tidak boleh kosong"] },
   password: { type: String, required: [true, "Password tidak boleh kosong"] },

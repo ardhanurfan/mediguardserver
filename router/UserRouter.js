@@ -15,7 +15,4 @@ router.post("/sign-up", user.signup);
 /* POST login user */
 router.post("/sign-in", user.signin);
 
-/* POST unit datase */
-router.post("/user/push-dataset", user.uploadData);
-
 module.exports = router;

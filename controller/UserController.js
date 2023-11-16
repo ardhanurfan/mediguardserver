@@ -1,34 +1,9 @@
 const User = require("../models/UserModel");
-<<<<<<< Updated upstream
 const config = require("../config");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 
 const getAllUsers = async (req, res) => {
-=======
-const dataset = require("../dataset/user.json");
-const uploadData = async (req, res) => {
-  try {
-      await dataset.forEach(async (element) => {
-          await User.create([
-              {
-                  userId: element.userId,
-                  namaLengkap: element.namaLengkap,
-                  email: element.email,
-                  password: element.role,
-                  role: element.role
-              },
-          ]);
-      });
-      res.formatter.ok("Upload data done");
-  }catch (error) {
-      console.log(error);
-      return res.status(500).send({message:"Error"});
-  }
-};
-
-const getUsers = async (req, res) => {
->>>>>>> Stashed changes
   try {
     const users = await User.find();
     res.formatter.ok(users);
@@ -45,7 +20,6 @@ const getUser = async (req, res) => {
   }
 };
 
-<<<<<<< Updated upstream
 const signup = async (req, res, next) => {
   try {
     const payload = req.body;
@@ -129,10 +103,4 @@ module.exports = {
   signup,
   signin,
   getUser,
-=======
-module.exports = {
-  getUsers,
-  createUser,
-  uploadData,
->>>>>>> Stashed changes
 };
