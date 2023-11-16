@@ -18,27 +18,27 @@ const transactionSchema = new mongoose.Schema({
     required: true,
   },
   branchCode: {
-    type: mongoose.Schema.Types.ObjectId,
+    type: String,
     ref: "Branch",
   },
-  status: { 
-    type: String 
+  status: {
+    type: String,
   },
   ship_method_code: {
-    type: mongoose.Schema.Types.ObjectId,
+    type: String,
     ref: "Vendor",
   },
   cust_num: {
-    type: mongoose.Schema.Types.ObjectId,
+    type: String,
     ref: "User",
   },
   prod_code: {
-    type: mongoose.Schema.Types.ObjectId,
+    type: String,
     ref: "Product",
   },
   shipped_qty: { type: Number },
   unitId: {
-    type: mongoose.Schema.Types.ObjectId,
+    type: String,
     ref: "Unit",
   },
   packing_date: { type: Date },
