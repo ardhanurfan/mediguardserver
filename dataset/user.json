@@ -7,12 +7,14 @@
       "role": "superadmin"
     },
     {
+      "userId": "A002",
       "namaLengkap": "Jane Smith",
       "email": "janesmith@example.com",
       "password": "password456",
       "role": "admin"
     },
     {
+      "userId": "D001",
       "namaLengkap": "Robert Johnson",
       "email": "robertjohnson@example.com",
       "password": "password789",

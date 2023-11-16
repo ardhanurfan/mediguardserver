@@ -1,7 +1,6 @@
 const mongoose = require("mongoose");
 
 const transactionSchema = new mongoose.Schema({
-  _id: mongoose.Schema.Types.ObjectId,
   staffId: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "User", // Reference the User model

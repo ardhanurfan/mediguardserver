@@ -5,6 +5,7 @@ const uploadData = async (req, res) => {
         await dataset.forEach(async (element) => {
             await Unit.create([
                 {
+                    unitId: element.unitId,
                     type: element.type,
                     batteryCapacity: element.batteryCapacity,
                     currentState: element.currentState,
@@ -12,7 +13,7 @@ const uploadData = async (req, res) => {
                     temperature: element.temperature,
                     humidity: element.humidity,
                     longitude: element.longitude,
-                    latitude: element,latitude
+                    latitude: element.latitude
                 },
             ]);
         });

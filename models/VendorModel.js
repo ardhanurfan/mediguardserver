@@ -1,17 +1,10 @@
 const mongoose = require("mongoose");
 
 const vendorSchema = new mongoose.Schema({
-  _id: {
-    type: String,
-    default: function() {
-      // Create a unique ObjectId based on vwndor_id and shipper_code
-      return new mongoose.Types.ObjectId(`${this.shipper_code}${this.vendor_id.toString()}`);
-    },
-  },
-  cabang: { type: String, unique: false },
+  cabang: { type: String, unique: false, required:true },
   shipper: { type: String, unique: false },
   shipmethod_code: { type: String, unique: false },
-  namaCabang: { type: String, required: [true, "Nama tidak boleh kosong"] },
+  vendorId: { type: Number, required: [true, "Nama tidak boleh kosong"] },
   service: { type: String, required: [true, "Alamat tidak boleh kosong"] },
   chargeBase: { type: String, required: true },
   licensePlate: { type: String, required: true },

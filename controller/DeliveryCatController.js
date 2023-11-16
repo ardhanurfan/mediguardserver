@@ -5,10 +5,10 @@ const uploadData = async (req, res) => {
         await dataset.forEach(async (element) => {
             await DeliveryCat.create([
                 {
-                    kategori_pengiriman: element.kategori_pengiriman,
-                    suhu_simpan: element.suhu_simpan,
-                    min_suhu_kirim_celcius: element.min_suhu_kirim_celcius,
-                    max_suhu_kirim_celcius: element.max_suhu_kirim_celcius
+                    kategoriPengiriman: element.kategori_pengiriman,
+                    suhuSimpan: element.suhu_simpan,
+                    minSuhu: element.min_suhu_kirim_celcius,
+                    maxSuhu: element.max_suhu_kirim_celcius
                 },
             ]);
         });

@@ -4,6 +4,7 @@ const axios = require("axios");
 const apiKey = "e98923788ac06282c32fac27e30d6e62";
 
 const uploadData = async (req, res) => {
+<<<<<<< Updated upstream
   try {
     await dataset.forEach(async (element) => {
       await Vendor.create([
@@ -122,6 +123,40 @@ const getCity = async (req, res) => {
       message: error.response.data || "Internal server error",
     });
   }
+=======
+    try {
+        await dataset.forEach(async (element) => {
+            await Vendor.create([
+                {
+                    shipper: element.SHIPPER_CODE,
+                    cabang: element.CABANG,
+                    shipmethod_code: element.SHIPMETHOD_CODE,
+                    vendorId: element.VENDOR_ID,
+                    service: element.SERVICE,
+                    chargeBase: element.CHARGE_BASE,
+                    licensePlate: element.LICENSE_PLATE,
+                    minType: element.MIN_TYPE,
+                    calcType: element.CALC_TYPE,
+                    type: element.TYPE,
+                    moda: element.MODA,
+                    printFlag: element.PRINT_FLAG,
+                    packerFlag: element.PACKER_FLAG,
+                    leadTime: element.LEAD_TIME,
+                    ppnType: element.PPN_TYPE,
+                    wht: element.WHT,
+                    lineNumber: element.LINE_NUMBER,
+                    termMin: Number.parseInt(element.TERM_MIN),
+                    termMax: element.TERM_MAX,
+                    rate: element.RATE
+                },
+            ]);
+        });
+        res.formatter.ok("Upload data done");
+    }catch (error) {
+        console.log(error);
+        return res.status(500).send({message:"Error"});
+    }
+>>>>>>> Stashed changes
 };
 
 module.exports = {
