@@ -3,10 +3,18 @@ const config = require("../config");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 
-const getUsers = async (req, res) => {
+const getAllUsers = async (req, res) => {
   try {
     const users = await User.find();
     res.formatter.ok(users);
+  } catch (error) {
+    res.formatter.badRequest(error);
+  }
+};
+
+const getUser = async (req, res) => {
+  try {
+    res.formatter.ok(req.user);
   } catch (error) {
     res.formatter.badRequest(error);
   }
@@ -91,7 +99,8 @@ const signin = async (req, res, next) => {
 };
 
 module.exports = {
-  getUsers,
+  getAllUsers,
   signup,
   signin,
+  getUser,
 };
