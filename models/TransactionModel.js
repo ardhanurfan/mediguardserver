@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 
 const transactionSchema = new mongoose.Schema({
   staffId: {
-    type: mongoose.Schema.Types.ObjectId,
+    type: String,
     ref: "User", // Reference the User model
   }, // User ID from the database
   orderNum: {
@@ -21,15 +21,15 @@ const transactionSchema = new mongoose.Schema({
     type: String,
     ref: "Branch",
   },
-  status: {
-    type: String,
+  status: { 
+    type: String 
   },
   ship_method_code: {
     type: String,
     ref: "Vendor",
   },
   cust_num: {
-    type: String,
+    type: Number,
     ref: "User",
   },
   prod_code: {

@@ -11,6 +11,7 @@ const uploadData = async (req, res) => {
           deliveryNum: element.DELIVERY_NO,
           transportType: element.TIPE_TRANSPORT,
           branchCode: element.KODE_CABANG,
+          status: element.STATUS,
           ship_method_code: element.SHIP_METHOD_CODE,
           cust_num: element.CUSTOMER_NUMBER,
           prod_code: element.PRODUCT_CODE,
@@ -31,7 +32,16 @@ const uploadData = async (req, res) => {
 
 const getTaskList = async (req, res) => {
   try {
-    var transactions = await Transaction.find().populate("prod_code");
+    var transactions = await Transaction.aggregate([
+      {
+        $lookup: {
+          from: "products", // Replace "products" with your actual collection name
+          localField: "prod_code",
+          foreignField: "prod_code",
+          as: "productInfo",
+        },
+      },
+    ]);
 
     res.formatter.ok(transactions);
   } catch (error) {
