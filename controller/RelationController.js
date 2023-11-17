@@ -15,7 +15,9 @@ const uploadData = async (req, res) => {
                     channel: element.CHANNEL,
                     shipMethodCode: element.SHIP_METHOD_CODE,
                     shipMethodDesc: element.SHIP_METHOD_DESC,
-                    deliveryAreaGroup: element.DELIVERY_AREA_GROUP
+                    deliveryAreaGroup: element.DELIVERY_AREA_GROUP,
+                    latitude: element.LATITUDE,
+                    longitude: element.LONGITUDE
                 },
             ]);
         });

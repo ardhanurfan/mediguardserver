@@ -14,6 +14,8 @@ const relationSchema = new mongoose.Schema({
   shipMethodCode: { type: String, required: true },
   shipMethodDesc: { type: String, required: true },
   deliveryAreaGroup: { type: String, required: true },
+  latitude: { type: Number },
+  longitude: { type: Number }
 });
 
 const Relation = mongoose.model("Relation", relationSchema);

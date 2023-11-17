@@ -30,15 +30,55 @@ const uploadData = async (req, res) => {
   }
 };
 
-const getTaskList = async (req, res) => {
+const getTransactionList = async (req, res) => {
   try {
     var transactions = await Transaction.aggregate([
       {
         $lookup: {
-          from: "products", // Replace "products" with your actual collection name
+          from: "users", 
+          localField: "staffId",
+          foreignField: "userId", 
+          as: "staffInfo",
+        },
+      },
+      {
+        $lookup: {
+          from: "branches", 
+          localField: "branchCode",
+          foreignField: "kode_cabang",
+          as: "branchInfo",
+        },
+      },
+      // {
+      //   $lookup: {
+      //     from: "vendors", 
+      //     localField: "ship_method_code",
+      //     foreignField: "shipmethod_code",
+      //     as: "vendorInfo",
+      //   },
+      // },
+      {
+        $lookup: {
+          from: "relations", 
+          localField: "cust_num",
+          foreignField: "custNum", 
+          as: "customerInfo",
+        },
+      },
+      {
+        $lookup: {
+          from: "products", 
           localField: "prod_code",
           foreignField: "prod_code",
           as: "productInfo",
+        },
+      },
+      {
+        $lookup: {
+          from: "units", 
+          localField: "unitId",
+          foreignField: "unitId", 
+          as: "unitMG",
         },
       },
     ]);
@@ -53,5 +93,5 @@ const getTaskList = async (req, res) => {
 
 module.exports = {
   uploadData,
-  getTaskList,
+  getTransactionList,
 };

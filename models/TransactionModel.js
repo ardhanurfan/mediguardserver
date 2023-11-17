@@ -4,7 +4,7 @@ const transactionSchema = new mongoose.Schema({
   staffId: {
     type: String,
     ref: "User", // Reference the User model
-  }, // User ID from the database
+  }, 
   orderNum: {
     type: Number,
     required: true,
@@ -30,7 +30,7 @@ const transactionSchema = new mongoose.Schema({
   },
   cust_num: {
     type: Number,
-    ref: "User",
+    ref: "Relation",
   },
   prod_code: {
     type: String,
