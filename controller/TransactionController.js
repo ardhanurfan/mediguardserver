@@ -33,25 +33,25 @@ const uploadData = async (req, res) => {
 const getTransactionList = async (req, res) => {
   try {
     var transactions = await Transaction.aggregate([
-      {
-        $lookup: {
-          from: "users", 
-          localField: "staffId",
-          foreignField: "userId", 
-          as: "staffInfo",
-        },
-      },
-      {
-        $lookup: {
-          from: "branches", 
-          localField: "branchCode",
-          foreignField: "kode_cabang",
-          as: "branchInfo",
-        },
-      },
       // {
       //   $lookup: {
-      //     from: "vendors", 
+      //     from: "users",
+      //     localField: "staffId",
+      //     foreignField: "userId",
+      //     as: "staffInfo",
+      //   },
+      // },
+      // {
+      //   $lookup: {
+      //     from: "branches",
+      //     localField: "branchCode",
+      //     foreignField: "kode_cabang",
+      //     as: "branchInfo",
+      //   },
+      // },
+      // {
+      //   $lookup: {
+      //     from: "vendors",
       //     localField: "ship_method_code",
       //     foreignField: "shipmethod_code",
       //     as: "vendorInfo",
@@ -59,15 +59,15 @@ const getTransactionList = async (req, res) => {
       // },
       {
         $lookup: {
-          from: "relations", 
+          from: "relations",
           localField: "cust_num",
-          foreignField: "custNum", 
+          foreignField: "custNum",
           as: "customerInfo",
         },
       },
       {
         $lookup: {
-          from: "products", 
+          from: "products",
           localField: "prod_code",
           foreignField: "prod_code",
           as: "productInfo",
@@ -75,9 +75,9 @@ const getTransactionList = async (req, res) => {
       },
       {
         $lookup: {
-          from: "units", 
+          from: "units",
           localField: "unitId",
-          foreignField: "unitId", 
+          foreignField: "unitId",
           as: "unitMG",
         },
       },

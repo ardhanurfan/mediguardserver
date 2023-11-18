@@ -4,7 +4,7 @@ const transactionSchema = new mongoose.Schema({
   staffId: {
     type: String,
     ref: "User", // Reference the User model
-  }, 
+  },
   orderNum: {
     type: Number,
     required: true,
@@ -21,8 +21,9 @@ const transactionSchema = new mongoose.Schema({
     type: String,
     ref: "Branch",
   },
-  status: { 
-    type: String 
+  deliveryCat: {
+    type: String,
+    ref: "DeliveryCat",
   },
   ship_method_code: {
     type: String,
@@ -32,10 +33,12 @@ const transactionSchema = new mongoose.Schema({
     type: Number,
     ref: "Relation",
   },
-  prod_code: {
-    type: String,
-    ref: "Product",
-  },
+  prod_code: [
+    {
+      type: String,
+      ref: "Product",
+    },
+  ],
   shipped_qty: { type: Number },
   unitId: {
     type: String,
@@ -44,6 +47,7 @@ const transactionSchema = new mongoose.Schema({
   packing_date: { type: Date },
   delivery_date: { type: Date },
   arrival_date: { type: Date },
+  distance: { type: Number },
 });
 
 const Transaction = mongoose.model("Transaction", transactionSchema);
