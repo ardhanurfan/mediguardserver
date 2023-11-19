@@ -1,5 +1,6 @@
 const DeliveryCat = require("../models/DeliveryCatModel");
 const dataset = require("../dataset/deliveryCat.json");
+
 const uploadData = async (req, res) => {
   try {
     dataset.forEach(async (element) => {
