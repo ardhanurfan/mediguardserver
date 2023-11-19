@@ -2,7 +2,7 @@ const DeliveryCat = require("../models/DeliveryCatModel");
 const dataset = require("../dataset/deliveryCat.json");
 const uploadData = async (req, res) => {
   try {
-    await dataset.forEach(async (element) => {
+    dataset.forEach(async (element) => {
       await DeliveryCat.create([
         {
           kategoriPengiriman: element.kategori_pengiriman,
