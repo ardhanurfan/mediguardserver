@@ -59,6 +59,10 @@ app.use(`${URL}/vendor`, vendorRouter);
 app.use(`${URL}/whatsapp`, whatsappRouter);
 app.use(`${URL}/destination`, destinationRouter);
 
+app.get("/", function (req, res) {
+  res.send("Hello, my api is running");
+});
+
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
   next(createError(404));

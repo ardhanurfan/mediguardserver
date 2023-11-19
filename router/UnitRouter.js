@@ -10,4 +10,6 @@ router.post("/push-dataset", unit.uploadData);
 
 router.get("/get-on-going", unit.getOnGoing);
 
+router.get("/get", unit.get);
+
 module.exports = router;

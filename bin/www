@@ -11,8 +11,9 @@ const socketIo = require("socket.io");
 const db = require("../db");
 const mqttConnection = require("../mqtt");
 const wwebjsConnection = require("../wwebjs");
-const Sensor = require("../models/SensorModel");
 const sensorController = require("../controller/SensorController");
+const unitController = require("../controller/UnitController");
+const Unit = require("../models/UnitModel");
 
 /**
  * Get port from environment and store in Express.
@@ -31,7 +32,12 @@ var server = http.createServer(app);
  * Create Socket.IO server.
  */
 
-const io = socketIo(server);
+const io = socketIo(server, {
+  cors: {
+    origin: "*",
+    methods: ["GET", "POST"],
+  },
+});
 
 /**
  * Listen on provided port, on all network interfaces.
@@ -51,20 +57,23 @@ db.on("open", function () {
 io.on("connection", (socket) => {
   // Mendengarkan pesan dari klien
   console.log("Client Connected");
-  socket.on("subscribeToData", (device) => {
+  socket.on("subscribeToData", (unitId) => {
     // Bergabung dengan "room" berdasarkan ID data
-    socket.join(device);
+    socket.join(unitId);
   });
 });
 
-Sensor.watch().on("change", async (change) => {
-  const data = await Sensor.findById(change.documentKey._id);
-  io.to(data.device).emit("dataChanged", data);
+Unit.watch().on("change", async (change) => {
+  const data = await Unit.findById(change.documentKey._id);
+  io.to(data.unitId).emit("dataChanged", data);
+
+  const dataUnits = await unitController.getOnGoingSocket();
+  io.emit("dataUnits", dataUnits);
+  console.log(dataUnits);
 });
 
 mqttConnection.on("connect", () => {
   mqttConnection.subscribe("MediGuardDevice/data");
-  console.log("Connect MQTT Success");
 });
 
 mqttConnection.on("message", async (topic, data) => {

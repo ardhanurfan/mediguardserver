@@ -5,6 +5,6 @@ const transaction = require("../controller/TransactionController");
 /* POST transaction dataset */
 router.post("/push-dataset", transaction.uploadData);
 
-router.get("/transaction-list", transaction.getTransactionList);
+router.get("/get", transaction.getTransaction);
 
 module.exports = router;
