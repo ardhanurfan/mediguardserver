@@ -73,6 +73,7 @@ Unit.watch().on("change", async (change) => {
 });
 
 mqttConnection.on("connect", () => {
+  console.log("Connect MQTT Success");
   mqttConnection.subscribe("MediGuardDevice/data");
 });
 
