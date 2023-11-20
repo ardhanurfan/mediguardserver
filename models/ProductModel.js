@@ -11,7 +11,7 @@ const productSchema = new mongoose.Schema({
   tinggiCm: { type: Number, required: true },
   isLifeSaving: { type: Boolean, required: true },
   volumeCm3: { type: Number, required: true },
-  kategoriPengiriman: { type: Number, required: true },
+  kategoriPengiriman: { type: String, required: true },
 });
 
 const Product = mongoose.model("Product", productSchema);
