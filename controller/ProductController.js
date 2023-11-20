@@ -18,7 +18,7 @@ const uploadData = async (req, res) => {
           tinggiCm: element.tinggi_cm,
           volumeCm3: element.volume_cm3,
           isLifeSaving: element.is_life_saving,
-          kategoriPengiriman: Number.parseInt(element.kategori_pengiriman),
+          kategoriPengiriman: element.kategori_pengiriman,
         },
       ]);
     });
