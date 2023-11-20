@@ -10,6 +10,8 @@ const uploadData = async (req, res) => {
           namaCabang: element.nama_cabang,
           alamat: element.alamat,
           kode_cabang: element.kode_cabang,
+          latitude: element.latitude,
+          longitude: element.longitude,
         },
       ]);
     });
