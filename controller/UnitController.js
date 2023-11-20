@@ -28,6 +28,11 @@ const getOnGoing = async (req, res) => {
   try {
     var units = await Unit.aggregate([
       {
+        $match: {
+          currentState: true,
+        },
+      },
+      {
         $lookup: {
           from: "transactions",
           localField: "orderNum",
@@ -60,7 +65,7 @@ const getOnGoing = async (req, res) => {
       {
         $lookup: {
           from: "deliverycats",
-          localField: "transactionUnits.deliveryCat",
+          localField: "transactionUnits.productDetails.kategoriPengiriman",
           foreignField: "kategoriPengiriman",
           as: "transactionUnits.deliveryCat",
         },
@@ -84,11 +89,6 @@ const getOnGoing = async (req, res) => {
           departureTime: { $first: "$departureTime" },
           currentTransaction: { $first: "$currentTransaction" },
           transactionUnits: { $push: "$transactionUnits" },
-        },
-      },
-      {
-        $match: {
-          currentState: true,
         },
       },
     ]);
@@ -104,6 +104,11 @@ const getOnGoingSocket = async () => {
   try {
     var units = await Unit.aggregate([
       {
+        $match: {
+          currentState: true,
+        },
+      },
+      {
         $lookup: {
           from: "transactions",
           localField: "orderNum",
@@ -136,7 +141,7 @@ const getOnGoingSocket = async () => {
       {
         $lookup: {
           from: "deliverycats",
-          localField: "transactionUnits.deliveryCat",
+          localField: "transactionUnits.productDetails.kategoriPengiriman",
           foreignField: "kategoriPengiriman",
           as: "transactionUnits.deliveryCat",
         },
@@ -160,11 +165,6 @@ const getOnGoingSocket = async () => {
           departureTime: { $first: "$departureTime" },
           currentTransaction: { $first: "$currentTransaction" },
           transactionUnits: { $push: "$transactionUnits" },
-        },
-      },
-      {
-        $match: {
-          currentState: true,
         },
       },
     ]);

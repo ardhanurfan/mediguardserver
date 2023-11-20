@@ -8,4 +8,5 @@ module.exports = {
   rootPath: path.resolve(__dirname, ".."),
   jwtKey: process.env.SECRET,
   urlDb: process.env.MONGO_URL,
+  map_key: process.env.MAPS_KEY,
 };

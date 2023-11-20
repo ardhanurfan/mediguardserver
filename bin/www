@@ -13,7 +13,9 @@ const mqttConnection = require("../mqtt");
 const wwebjsConnection = require("../wwebjs");
 const sensorController = require("../controller/SensorController");
 const unitController = require("../controller/UnitController");
+const transactionController = require("../controller/TransactionController");
 const Unit = require("../models/UnitModel");
+const Transaction = require("../models/TransactionModel");
 
 /**
  * Get port from environment and store in Express.
@@ -69,7 +71,11 @@ Unit.watch().on("change", async (change) => {
 
   const dataUnits = await unitController.getOnGoingSocket();
   io.emit("dataUnits", dataUnits);
-  console.log(dataUnits);
+});
+
+Transaction.watch().on("change", async (change) => {
+  const transaction = await transactionController.getTransactionSocket();
+  io.emit("transaction", transaction);
 });
 
 mqttConnection.on("connect", () => {

@@ -7,6 +7,10 @@ router.post("/push-dataset", vendor.uploadData);
 
 router.post("/get-ongkir", vendor.getOngkir);
 
+router.post("/recommendation", vendor.getRecommendation);
+
+router.post("/distance-duration", vendor.getDistanceAndDuration);
+
 router.get("/get-province", vendor.getProvince);
 
 router.get("/get-city", vendor.getCity);

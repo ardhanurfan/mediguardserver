@@ -42,10 +42,14 @@ const transactionSchema = new mongoose.Schema({
     type: String,
     ref: "Unit",
   },
+  vendor: {
+    type: String,
+  },
   packing_date: { type: Date },
   delivery_date: { type: Date },
   arrival_date: { type: Date },
-  distance: { type: Number },
+  distance: { type: String },
+  duration: { type: String },
 });
 
 const Transaction = mongoose.model("Transaction", transactionSchema);
