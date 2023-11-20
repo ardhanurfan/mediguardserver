@@ -33,12 +33,10 @@ const transactionSchema = new mongoose.Schema({
     type: Number,
     ref: "Relation",
   },
-  prod_code: [
-    {
-      type: String,
-      ref: "Product",
-    },
-  ],
+  prod_code: {
+    type: String,
+    ref: "Product",
+  },
   shipped_qty: { type: Number },
   unitId: {
     type: String,
