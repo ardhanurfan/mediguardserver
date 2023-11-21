@@ -1,6 +1,9 @@
 const Transaction = require("../models/TransactionModel");
 const Unit = require("../models/UnitModel");
 const dataset = require("../dataset/transaction.json");
+const wwebjsConnection = require("../wwebjs");
+const { MessageMedia } = require("whatsapp-web.js");
+
 const uploadData = async (req, res) => {
   try {
     var datasetSlice = dataset.slice(0, 30);
@@ -141,6 +144,25 @@ const assign = async (req, res) => {
         $push: { orderNum: orderNum },
       }
     );
+    const phoneNumber = "6285155034312";
+    const phoneNumberSend = phoneNumber + "@c.us"; // Gantilah dengan nomor telepon tujuan Anda
+    const media = await MessageMedia.fromUrl(
+      `https://quickchart.io/qr?text=${orderNum}&dark=FFFFFF&light=0F2341&centerImageUrl=https://imageupload.io/ib/LymxhlfWYwAn9re_1699517572.png`,
+      { unsafeMime: true }
+    );
+
+    wwebjsConnection.sendMessage(phoneNumberSend, media, {
+      caption:
+        "Halo, pelanggan. Berikut merupakan QR Code untuk membuka MediGuard ketika sudah sampai lokasi. Terima Kasih.",
+    });
+
+    if (vendor == "pos" || vendor == "jne" || vendor == "tiki") {
+      wwebjsConnection.sendMessage(
+        phoneNumberSend,
+        "Halo, kami dari MediGuard ingin mengirimkan pesanan. Barang dapat diambil di cabang terdekat.Terima Kasih."
+      );
+    }
+
     res.formatter.ok("Assign Successfully");
   } catch (error) {
     console.log(error);

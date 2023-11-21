@@ -21,4 +21,20 @@ const sendQRCode = async (req, res) => {
   }
 };
 
-module.exports = { sendQRCode };
+const send = async (req, res) => {
+  try {
+    const { phoneNumber } = req.body;
+    const phoneNumberSend = phoneNumber + "@c.us"; // Gantilah dengan nomor telepon tujuan Anda
+
+    wwebjsConnection.sendMessage(
+      phoneNumberSend,
+      "Halo, pelanggan. Barang kamu sudah mau sampai, pastikan Anda di lokasi. Terima Kasih."
+    );
+
+    res.formatter.ok("Send Messages Successfully");
+  } catch (error) {
+    return res.status(500).send({ message: error });
+  }
+};
+
+module.exports = { sendQRCode, send };
