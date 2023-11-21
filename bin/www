@@ -86,6 +86,7 @@ mqttConnection.on("connect", () => {
 mqttConnection.on("message", async (topic, data) => {
   if (topic === "MediGuardDevice/data") {
     await sensorController.saveSensorToMongo(JSON.parse(data));
+    console.log(JSON.parse(data));
   }
 });
 

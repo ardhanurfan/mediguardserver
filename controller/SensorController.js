@@ -1,4 +1,5 @@
 const Sensor = require("../models/SensorModel");
+const Unit = require("../models/UnitModel");
 const mqttConnection = require("../mqtt");
 
 const getSensor = async (req, res) => {
@@ -14,20 +15,24 @@ const getSensor = async (req, res) => {
 /* FOR Socket.IO */
 const saveSensorToMongo = async (inputToJson) => {
   try {
-    const found = await Sensor.findOne({ device: inputToJson.device });
+    const found = await Unit.findOne({ unitId: inputToJson.device });
     if (!found) {
-      await Sensor.create({
-        device: inputToJson.device,
+      await Unit.create({
+        unitId: inputToJson.device,
         temperature: inputToJson.temperature,
-        altitude: inputToJson.altitude,
+        humidity: inputToJson.humidity,
+        latitute: inputToJson.latitute,
+        longitude: inputToJson.longitude,
         lock: false,
       });
     } else {
-      await Sensor.updateOne(
-        { device: inputToJson.device },
+      await Unit.updateOne(
+        { unitId: inputToJson.device },
         {
           temperature: inputToJson.temperature,
-          altitude: inputToJson.altitude,
+          humidity: inputToJson.humidity,
+          latitute: inputToJson.latitute,
+          longitude: inputToJson.longitude,
         }
       );
     }
@@ -50,14 +55,14 @@ const updateDeviceLock = async (req, res) => {
     );
 
     // Update DB
-    await Sensor.updateOne(
-      { device: device },
+    await Unit.updateOne(
+      { unitId: device },
       {
-        lock: value,
+        lockState: value,
       }
     );
 
-    const sensor = await Sensor.findOne({ device: device });
+    const sensor = await Unit.findOne({ unitId: device });
     res.formatter.ok(sensor);
   } catch (error) {
     res.formatter.badRequest(error);
