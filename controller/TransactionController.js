@@ -151,13 +151,13 @@ const assign = async (req, res) => {
       { unsafeMime: true }
     );
 
-    wwebjsConnection.sendMessage(phoneNumberSend, media, {
+    await wwebjsConnection.sendMessage(phoneNumberSend, media, {
       caption:
         "Halo, pelanggan. Berikut merupakan QR Code untuk membuka MediGuard ketika sudah sampai lokasi. Terima Kasih.",
     });
 
     if (vendor == "pos" || vendor == "jne" || vendor == "tiki") {
-      wwebjsConnection.sendMessage(
+      await wwebjsConnection.sendMessage(
         phoneNumberSend,
         "Halo, kami dari MediGuard ingin mengirimkan pesanan. Barang dapat diambil di cabang terdekat.Terima Kasih."
       );
