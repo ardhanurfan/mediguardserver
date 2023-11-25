@@ -1,4 +1,6 @@
 const DeliveryCat = require("../models/DeliveryCatModel");
+const Transaction = require("../models/TransactionModel");
+const Product = require("../models/ProductModel");
 const dataset = require("../dataset/deliveryCat.json");
 
 const uploadData = async (req, res) => {
@@ -20,6 +22,25 @@ const uploadData = async (req, res) => {
   }
 };
 
+const get = async (req, res) => {
+  const { orderNum } = req.params;
+  try {
+    const transaction = await Transaction.findOne({ orderNum: orderNum });
+    const product = await Product.findOne({
+      prod_code: transaction.prod_code,
+    });
+    const deliveryCat = await DeliveryCat.findOne({
+      kategoriPengiriman: product.kategoriPengiriman,
+    });
+
+    res.formatter.ok(deliveryCat);
+  } catch (error) {
+    console.log(error);
+    return res.status(500).send({ message: "Error" });
+  }
+};
+
 module.exports = {
   uploadData,
+  get,
 };

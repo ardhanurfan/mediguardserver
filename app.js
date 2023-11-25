@@ -12,7 +12,6 @@ var branchRouter = require("./router/BranchRouter");
 var deliveryCatRouter = require("./router/DeliveryCatRouter");
 var productRouter = require("./router/ProductRouter");
 var relationRouter = require("./router/RelationRouter");
-var sensorRouter = require("./router/SensorRouter");
 var transactionRouter = require("./router/TransactionRouter");
 var unitRouter = require("./router/UnitRouter");
 var userRouter = require("./router/UserRouter");
@@ -48,8 +47,7 @@ app.use(responseEnhancer());
 
 // routers
 app.use(`${URL}/user`, userRouter);
-app.use(`${URL}/delivery`, deliveryCatRouter);
-app.use(`${URL}/sensor`, sensorRouter);
+app.use(`${URL}/deliveryCat`, deliveryCatRouter);
 app.use(`${URL}/branch`, branchRouter);
 app.use(`${URL}/product`, productRouter);
 app.use(`${URL}/relation`, relationRouter);

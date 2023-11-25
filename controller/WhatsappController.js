@@ -6,7 +6,7 @@ const sendQRCode = async (req, res) => {
     const { phoneNumber, code } = req.body;
     const phoneNumberSend = phoneNumber + "@c.us"; // Gantilah dengan nomor telepon tujuan Anda
     const media = await MessageMedia.fromUrl(
-      `https://quickchart.io/qr?text=${code}&dark=FFFFFF&light=0F2341&centerImageUrl=https://imageupload.io/ib/LymxhlfWYwAn9re_1699517572.png`,
+      `https://quickchart.io/qr?text=${code}&size=512&dark=FFFFFF&light=0F2341&centerImageUrl=https://iili.io/Jo0Xv5v.png`,
       { unsafeMime: true }
     );
 

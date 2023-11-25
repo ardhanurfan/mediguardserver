@@ -11,7 +11,6 @@ const socketIo = require("socket.io");
 const db = require("../db");
 const mqttConnection = require("../mqtt");
 const wwebjsConnection = require("../wwebjs");
-const sensorController = require("../controller/SensorController");
 const unitController = require("../controller/UnitController");
 const transactionController = require("../controller/TransactionController");
 const Unit = require("../models/UnitModel");
@@ -37,7 +36,7 @@ var server = http.createServer(app);
 const io = socketIo(server, {
   cors: {
     origin: "*",
-    methods: ["GET", "POST"],
+    methods: ["GET", "POST", "PUT"],
   },
 });
 
@@ -66,7 +65,7 @@ io.on("connection", (socket) => {
 });
 
 Unit.watch().on("change", async (change) => {
-  const data = await Unit.findById(change.documentKey._id);
+  const data = await Unit.findOne({ _id: change.documentKey._id });
   io.to(data.unitId).emit("dataChanged", data);
 
   const dataUnits = await unitController.getOnGoingSocket();
@@ -85,8 +84,7 @@ mqttConnection.on("connect", () => {
 
 mqttConnection.on("message", async (topic, data) => {
   if (topic === "MediGuardDevice/data") {
-    await sensorController.saveSensorToMongo(JSON.parse(data));
-    console.log(JSON.parse(data));
+    await unitController.saveSensorToMongo(JSON.parse(data));
   }
 });
 

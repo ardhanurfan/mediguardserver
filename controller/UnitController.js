@@ -1,6 +1,7 @@
 const Unit = require("../models/UnitModel");
 const dataset = require("../dataset/unit.json");
 const Transaction = require("../models/TransactionModel");
+const mqttConnection = require("../mqtt");
 const uploadData = async (req, res) => {
   try {
     await dataset.forEach(async (element) => {
@@ -75,6 +76,18 @@ const getOnGoing = async (req, res) => {
         $unwind: "$transactionUnits.deliveryCat", // Memastikan deliveryCats tidak berupa array
       },
       {
+        $addFields: {
+          orderNumIndex: {
+            $indexOfArray: ["$orderNum", "$transactionUnits.orderNum"],
+          },
+        },
+      },
+      {
+        $sort: {
+          orderNumIndex: 1, // Urutkan berdasarkan urutan array orderNum
+        },
+      },
+      {
         $group: {
           _id: "$_id",
           unitId: { $first: "$unitId" },
@@ -103,7 +116,6 @@ const getOnGoing = async (req, res) => {
 
 const getByUnitId = async (req, res) => {
   const { unitId } = req.params;
-  console.log(unitId);
 
   try {
     var units = await Unit.aggregate([
@@ -154,10 +166,23 @@ const getByUnitId = async (req, res) => {
         $unwind: "$transactionUnits.deliveryCat", // Memastikan deliveryCats tidak berupa array
       },
       {
+        $addFields: {
+          orderNumIndex: {
+            $indexOfArray: ["$orderNum", "$transactionUnits.orderNum"],
+          },
+        },
+      },
+      {
+        $sort: {
+          orderNumIndex: 1, // Urutkan berdasarkan urutan array orderNum
+        },
+      },
+      {
         $group: {
           _id: "$_id",
           unitId: { $first: "$unitId" },
           type: { $first: "$type" },
+          orderNum: { $first: "$orderNum" },
           batteryCapacity: { $first: "$batteryCapacity" },
           currentState: { $first: "$currentState" },
           lockState: { $first: "$lockState" },
@@ -230,6 +255,18 @@ const getOnGoingSocket = async () => {
         $unwind: "$transactionUnits.deliveryCat", // Memastikan deliveryCats tidak berupa array
       },
       {
+        $addFields: {
+          orderNumIndex: {
+            $indexOfArray: ["$orderNum", "$transactionUnits.orderNum"],
+          },
+        },
+      },
+      {
+        $sort: {
+          orderNumIndex: 1, // Urutkan berdasarkan urutan array orderNum
+        },
+      },
+      {
         $group: {
           _id: "$_id",
           unitId: { $first: "$unitId" },
@@ -265,46 +302,49 @@ const get = async (req, res) => {
   }
 };
 
+/* Mobile */
 const connect = async (req, res) => {
   const { unitId } = req.body;
   try {
-    var units = await Unit.findOne({ unitId: unitId });
-    if (units) {
-      await Unit.updateOne(
-        { unitId: unitId },
-        { currentState: true, currentTransaction: units.orderNum[0] }
-      );
-      for (const orderNum of units.orderNum) {
-        try {
-          await Transaction.updateOne(
-            { orderNum: orderNum },
-            { delivery_date: new Date().toLocaleString() }
-          );
-        } catch (error) {
-          return res
-            .status(500)
-            .send({ message: error.message || "Internal server error" });
-        }
-      }
-    } else {
-      return res.status(500).send({ message: "MediGuard Not found" });
+    var unit = await Unit.findOne({ unitId: unitId });
+    if (!unit) {
+      throw { message: "Mediguard Not Found" };
     }
-    res.formatter.ok("Connected to MediGuard success");
+
+    var update;
+    if (unit.currentTransaction) {
+      update = { currentState: true };
+    } else {
+      update = { currentState: true, currentTransaction: unit.orderNum[0] };
+      await Transaction.updateOne(
+        { orderNum: unit.orderNum[0] },
+        { delivery_date: new Date() }
+      );
+    }
+
+    const updatedUnit = await Unit.findOneAndUpdate(
+      { unitId: unitId },
+      update,
+      { new: true }
+    );
+
+    res.formatter.ok(updatedUnit);
   } catch (error) {
-    return res
-      .status(500)
-      .send({ message: error.message || "Internal server error" });
+    return res.status(500).send({
+      message: error.message || "Internal server error",
+    });
   }
 };
 
 const nextDestination = async (req, res) => {
   const { unitId } = req.body;
   try {
-    var units = await Unit.findOne({ unitId: unitId });
-    if (units) {
-      const index = units.orderNum.indexOf(units.currentTransaction);
-      if (index < units.orderNum.length) {
-        if (index == units.orderNum.length - 1) {
+    var unit = await Unit.findOne({ unitId: unitId });
+    if (unit) {
+      const index = unit.orderNum.indexOf(unit.currentTransaction);
+      if (index < unit.orderNum.length) {
+        // Jika terakhir
+        if (index == unit.orderNum.length - 1) {
           await Unit.updateOne(
             { unitId: unitId },
             {
@@ -313,23 +353,96 @@ const nextDestination = async (req, res) => {
               orderNum: [],
             }
           );
+          // Update Arrive paket terakhir
+          await Transaction.updateOne(
+            { orderNum: unit.orderNum[index] },
+            { arrival_date: new Date() }
+          );
+
+          // Jika next
         } else {
           await Unit.updateOne(
             { unitId: unitId },
             {
-              currentTransaction: units.orderNum[index + 1],
+              currentTransaction: unit.orderNum[index + 1],
             }
+          );
+          // Update Arrive dan deliver paket berikutnya
+          await Transaction.updateOne(
+            { orderNum: unit.orderNum[index] },
+            { arrival_date: new Date() }
+          );
+          await Transaction.updateOne(
+            { orderNum: unit.orderNum[index + 1] },
+            { delivery_date: new Date() }
           );
         }
       }
+      res.formatter.ok("Next destination success");
     } else {
       return res.status(500).send({ message: "MediGuard Not found" });
     }
-    res.formatter.ok("Next destination success");
   } catch (error) {
     return res
       .status(500)
       .send({ message: error.message || "Internal server error" });
+  }
+};
+
+const updateDeviceLock = async (req, res) => {
+  try {
+    const { device, value } = req.body;
+
+    // Publish MQTT to IoT
+    mqttConnection.publish(
+      "MediGuardDevice/output",
+      JSON.stringify({
+        device: device,
+        lock: value,
+      })
+    );
+
+    // Update DB
+    const data = await Unit.updateOne(
+      { unitId: device },
+      {
+        lockState: value,
+      }
+    );
+
+    res.formatter.ok(data != null);
+  } catch (error) {
+    console.log(error);
+    res.formatter.badRequest(error);
+  }
+};
+
+/* FOR Socket.IO */
+const saveSensorToMongo = async (inputToJson) => {
+  try {
+    const found = await Unit.findOne({ unitId: inputToJson.device });
+    if (!found) {
+      await Unit.create({
+        unitId: inputToJson.device,
+        temperature: inputToJson.temperature,
+        humidity: inputToJson.humidity,
+        latitute: inputToJson.latitute,
+        longitude: inputToJson.longitude,
+        lock: false,
+      });
+    } else {
+      await Unit.updateMany(
+        { unitId: inputToJson.device },
+        {
+          temperature: inputToJson.temperature,
+          humidity: inputToJson.humidity,
+          latitute: inputToJson.latitute,
+          longitude: inputToJson.longitude,
+        }
+      );
+    }
+  } catch (error) {
+    console.log({ message: error });
   }
 };
 
@@ -341,4 +454,6 @@ module.exports = {
   connect,
   getByUnitId,
   nextDestination,
+  updateDeviceLock,
+  saveSensorToMongo,
 };

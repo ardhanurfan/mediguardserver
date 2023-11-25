@@ -13,6 +13,8 @@ router.get("/get", auth.isLogin, unit.get);
 router.post("/connect", unit.connect);
 router.post("/next", unit.nextDestination);
 
-router.get("/get-by-id/:unitId", unit.getByUnitId);
+router.get("/transactionUnits/:unitId", unit.getByUnitId);
+
+router.post("/device-lock", unit.updateDeviceLock);
 
 module.exports = router;
