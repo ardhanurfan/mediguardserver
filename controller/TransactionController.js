@@ -147,7 +147,7 @@ const assign = async (req, res) => {
     const phoneNumber = "6285155034312";
     const phoneNumberSend = phoneNumber + "@c.us"; // Gantilah dengan nomor telepon tujuan Anda
     const media = await MessageMedia.fromUrl(
-      `https://quickchart.io/qr?text=${unitId}&size=512&dark=FFFFFF&light=0F2341&centerImageUrl=https://iili.io/Jo0Xv5v.png`,
+      `https://quickchart.io/qr?text=${orderNum}&size=512&dark=FFFFFF&light=0F2341&centerImageUrl=https://iili.io/Jo0Xv5v.png`,
       { unsafeMime: true }
     );
 
